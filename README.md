@@ -1,4 +1,4 @@
-# dashboard-vendas-powerbi
+# Dashboard de vendas em PowerBI
 Meu primeiro projeto desenvolvido no Power BI, no qual explorei conceitos fundamentais de análise de dados, como transformação e importação de dados, criação de medidas e colunas calculadas, além de boas práticas de design e organização visual com o padrão Z.
 
 O dashboard tem como objetivo analisar o desempenho de um Serviço de Atendimento ao Consumidor (SAC), reunindo indicadores operacionais e temporais para facilitar o acompanhamento dos atendimentos.
