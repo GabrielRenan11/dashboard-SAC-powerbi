@@ -24,7 +24,7 @@ O projeto foi desenvolvido com o objetivo de aplicar conceitos fundamentais de a
 
 ### 4. Evolução do tempo médio de atendimento
 
-![Evolução do tempo médio de atendimento](images/evolução-tempo-médio-atendimento.png)
+![Evolução do tempo médio de atendimento](images/evolução-tempo-médio-atendimentos.png)
 
 ### 5. Rankings de principais problemas e atendentes
 ![Principais problemas registrados e atendentes](images/rankings-complementares.png)
