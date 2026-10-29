@@ -1,0 +1,137 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "0966619ec16ec12ad312",
+  "position": {
+    "x": 149.09090909090907,
+    "y": 678.18181818181813,
+    "z": 6000,
+    "height": 375.45454545454544,
+    "width": 1210,
+    "tabOrder": 6000
+  },
+  "visual": {
+    "visualType": "lineChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "HierarchyLevel": {
+                  "Expression": {
+                    "Hierarchy": {
+                      "Expression": {
+                        "PropertyVariationSource": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "fOcorrencias"
+                            }
+                          },
+                          "Name": "Variação",
+                          "Property": "Data Chamado"
+                        }
+                      },
+                      "Hierarchy": "Hierarquia de datas"
+                    }
+                  },
+                  "Level": "Ano"
+                }
+              },
+              "queryRef": "fOcorrencias.Data Chamado.Variação.Hierarquia de datas.Ano",
+              "nativeQueryRef": "Data Chamado Ano",
+              "active": true
+            },
+            {
+              "field": {
+                "HierarchyLevel": {
+                  "Expression": {
+                    "Hierarchy": {
+                      "Expression": {
+                        "PropertyVariationSource": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "fOcorrencias"
+                            }
+                          },
+                          "Name": "Variação",
+                          "Property": "Data Chamado"
+                        }
+                      },
+                      "Hierarchy": "Hierarquia de datas"
+                    }
+                  },
+                  "Level": "Mês"
+                }
+              },
+              "queryRef": "fOcorrencias.Data Chamado.Variação.Hierarquia de datas.Mês",
+              "nativeQueryRef": "Data Chamado Mês",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fOcorrencias"
+                    }
+                  },
+                  "Property": "Tempo Médio Atendimento (Minutos)"
+                }
+              },
+              "queryRef": "fOcorrencias.Tempo Médio Atendimento (Minutos)",
+              "nativeQueryRef": "Tempo Médio Atendimento (Minutos)"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "seriesLabels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "valueAxis": [
+        {
+          "properties": {
+            "start": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "stylePreset": [
+        {
+          "properties": {
+            "name": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Data labels'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "668c6d5deaf4f8834a91",
+  "displayName": "Página 1",
+  "displayOption": "FitToPage",
+  "height": 1080,
+  "width": 1920,
+  "objects": {
+    "background": [
+      {
+        "properties": {
+          "image": {
+            "image": {
+              "name": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'Plano de Fundo.png'"
+                  }
+                }
+              },
+              "url": {
+                "expr": {
+                  "ResourcePackageItem": {
+                    "PackageName": "RegisteredResources",
+                    "PackageType": 1,
+                    "ItemName": "Plano_de_Fundo5738985969768637.png"
+                  }
+                }
+              },
+              "scaling": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'Fit'"
+                  }
+                }
+              }
+            }
+          },
+          "transparency": {
+            "expr": {
+              "Literal": {
+                "Value": "0D"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "filterCard": [
+      {
+        "properties": {
+          "border": {
+            "expr": {
+              "Literal": {
+                "Value": "true"
+              }
+            }
+          }
+        },
+        "selector": {
+          "id": "Available"
+        }
+      }
+    ]
+  }
+}

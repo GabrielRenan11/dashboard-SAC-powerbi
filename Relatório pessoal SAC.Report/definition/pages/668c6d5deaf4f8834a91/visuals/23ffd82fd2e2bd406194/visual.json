@@ -1,0 +1,148 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "23ffd82fd2e2bd406194",
+  "position": {
+    "x": 148.57142857142858,
+    "y": 292.85714285714289,
+    "z": 5000,
+    "height": 367.14285714285717,
+    "width": 1210,
+    "tabOrder": 5000
+  },
+  "visual": {
+    "visualType": "columnChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "HierarchyLevel": {
+                  "Expression": {
+                    "Hierarchy": {
+                      "Expression": {
+                        "PropertyVariationSource": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "fOcorrencias"
+                            }
+                          },
+                          "Name": "Variação",
+                          "Property": "Data Chamado"
+                        }
+                      },
+                      "Hierarchy": "Hierarquia de datas"
+                    }
+                  },
+                  "Level": "Ano"
+                }
+              },
+              "queryRef": "fOcorrencias.Data Chamado.Variação.Hierarquia de datas.Ano",
+              "nativeQueryRef": "Data Chamado Ano",
+              "active": true
+            },
+            {
+              "field": {
+                "HierarchyLevel": {
+                  "Expression": {
+                    "Hierarchy": {
+                      "Expression": {
+                        "PropertyVariationSource": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "fOcorrencias"
+                            }
+                          },
+                          "Name": "Variação",
+                          "Property": "Data Chamado"
+                        }
+                      },
+                      "Hierarchy": "Hierarquia de datas"
+                    }
+                  },
+                  "Level": "Trimestre"
+                }
+              },
+              "queryRef": "fOcorrencias.Data Chamado.Variação.Hierarquia de datas.Trimestre",
+              "nativeQueryRef": "Data Chamado Trimestre",
+              "active": true
+            },
+            {
+              "field": {
+                "HierarchyLevel": {
+                  "Expression": {
+                    "Hierarchy": {
+                      "Expression": {
+                        "PropertyVariationSource": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "fOcorrencias"
+                            }
+                          },
+                          "Name": "Variação",
+                          "Property": "Data Chamado"
+                        }
+                      },
+                      "Hierarchy": "Hierarquia de datas"
+                    }
+                  },
+                  "Level": "Mês"
+                }
+              },
+              "queryRef": "fOcorrencias.Data Chamado.Variação.Hierarquia de datas.Mês",
+              "nativeQueryRef": "Data Chamado Mês",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fOcorrencias"
+                    }
+                  },
+                  "Property": "Total Atendimentos"
+                }
+              },
+              "queryRef": "fOcorrencias.Total Atendimentos",
+              "nativeQueryRef": "Total Atendimentos"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

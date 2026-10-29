@@ -1,0 +1,167 @@
+table fOcorrencias
+	lineageTag: 68fc15ec-8396-4670-988d-c29ac612a734
+
+	measure 'Total Atendimentos' = COUNTROWS(fOcorrencias)
+		formatString: 0
+		lineageTag: e6b623a2-ead0-45e2-8b3f-0f24e82e5555
+
+	measure 'Tempo Médio de Retorno (Dias)' = AVERAGE(fOcorrencias[Qtd Dias P/Resposta])
+		lineageTag: eccd96ed-08bf-49c7-88c9-59218cd58bcf
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Tempo Médio Atendimento (Minutos)' = AVERAGE(fOcorrencias[Tempo Atendimento (Min)])
+		lineageTag: 7a4d6403-6011-4b80-9a08-e5287ca4ea0e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Média Diária Chamados' = [Total Atendimentos]/DISTINCTCOUNT(fOcorrencias[Data Chamado])
+		lineageTag: 4bf4b895-8de1-4cfc-a31c-04a876ebc8ed
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Chamados Cancelados' = CALCULATE([Total Atendimentos], fOcorrencias[Status] = "Cancelado")
+		formatString: 0
+		lineageTag: 13f1503e-8334-4a64-98cc-e7f0439b7cc5
+
+	measure '% Cancelados' = [Chamados Cancelados]/[Total Atendimentos]
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 79fc50c1-fd11-4907-a4a6-5c6e04d4a87f
+
+	column 'Data Chamado'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 0d082c3a-2ae1-44e2-aae9-65c990194b03
+		summarizeBy: none
+		sourceColumn: Data Chamado
+
+		variation Variação
+			isDefault
+			relationship: 7f580eb4-ea3e-450f-9bdf-01df3bd67a57
+			defaultHierarchy: LocalDateTable_ccea99d8-8e96-4487-8e13-b77e51b0f574.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Data Resposta'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 0cf99acc-a752-48db-9ef4-766010993b16
+		summarizeBy: none
+		sourceColumn: Data Resposta
+
+		variation Variação
+			isDefault
+			relationship: 68169282-e7fa-43c9-91e8-020fd2ab21ec
+			defaultHierarchy: LocalDateTable_abb07fa6-3265-414f-a844-5b5abbf364a5.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Hora Inicial'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: c8bc6c2a-d0e9-4cd3-b3c4-ba97173da80b
+		summarizeBy: none
+		sourceColumn: Hora Inicial
+
+		variation Variação
+			isDefault
+			relationship: 8dba0171-4bf0-404f-a668-fb5c51239bfc
+			defaultHierarchy: LocalDateTable_9f857985-2cad-4c8b-b7d8-9c95cb53c4af.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Hora Final'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 6f6e9933-1fd2-435c-9389-d522dad66f9e
+		summarizeBy: none
+		sourceColumn: Hora Final
+
+		variation Variação
+			isDefault
+			relationship: c1997133-cdc3-4a6a-9710-ce1674435acb
+			defaultHierarchy: LocalDateTable_e15127a2-804c-4e5c-9aae-00c5772ab68e.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID Usuario'
+		dataType: int64
+		formatString: 0
+		lineageTag: a19e96cd-5775-4508-9197-725d6e95e096
+		summarizeBy: none
+		sourceColumn: ID Usuario
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID Suporte'
+		dataType: int64
+		formatString: 0
+		lineageTag: d50409f6-ed4e-4457-abdc-907d0a7ea2e5
+		summarizeBy: none
+		sourceColumn: ID Suporte
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID Problema'
+		dataType: int64
+		formatString: 0
+		lineageTag: cb9a6835-2225-4f09-b356-78321dd358c9
+		summarizeBy: none
+		sourceColumn: ID Problema
+
+		annotation SummarizationSetBy = Automatic
+
+	column Status
+		dataType: string
+		lineageTag: f8d14c38-50b2-4ff7-a2e4-5a4cd52fe6af
+		summarizeBy: none
+		sourceColumn: Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Tempo Atendimento (Min)'
+		dataType: double
+		lineageTag: 8c6fa170-e780-4922-9a39-218fb7e5f5ca
+		summarizeBy: sum
+		sourceColumn: Tempo Atendimento (Min)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Qtd Dias P/Resposta'
+		dataType: int64
+		formatString: 0
+		lineageTag: e59e2f08-d0b7-4910-8e1b-6946ab1dbc7e
+		summarizeBy: sum
+		sourceColumn: Qtd Dias P/Resposta
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fOcorrencias = m
+		mode: import
+		source =
+				let
+				  Origem = Excel.Workbook(File.Contents("C:\Users\gabri\Downloads\Projeto PBI\Base SAC.xlsx"), null, true),
+				  #"Navegação 1" = Origem{[Item = "fOcorrencias", Kind = "Sheet"]}[Data],
+				  #"Cabeçalhos promovidos" = Table.PromoteHeaders(#"Navegação 1", [PromoteAllScalars = true]),
+				  #"Tipo de coluna alterado" = Table.TransformColumnTypes(#"Cabeçalhos promovidos", {{"Data Chamado", type date}, {"Data Resposta", type date}, {"Hora Inicial", type datetime}, {"Hora Final", type datetime}, {"ID Usuario", Int64.Type}, {"ID Suporte", Int64.Type}, {"ID Problema", Int64.Type}, {"Status", type text}}),
+				  #"Personalização adicionada" = Table.TransformColumnTypes(Table.AddColumn(#"Tipo de coluna alterado", "Tempo Chamada", each [Hora Inicial] - [Hora Final]), {{"Tempo Chamada", type time}}),
+				  #"Colunas removidas" = Table.RemoveColumns(#"Personalização adicionada", {"Tempo Chamada"}),
+				  #"Personalização adicionada 1" = Table.AddColumn(#"Colunas removidas", "Tempo chamada", each [Hora Final][Hora Inicial]),
+				  #"Personalização adicionada 2" = Table.TransformColumnTypes(Table.AddColumn(#"Personalização adicionada 1", "Tempo de chamada", each [Hora Final] - [Hora Inicial]), {{"Tempo de chamada", type duration}}),
+				  #"Colunas removidas 1" = Table.RemoveColumns(#"Personalização adicionada 2", {"Tempo chamada"}),
+				  #"Total de minutos calculados" = Table.TransformColumns(#"Colunas removidas 1", {{"Tempo de chamada", each Duration.TotalMinutes(_), type nullable number}}),
+				  Arredondado = Table.TransformColumns(#"Total de minutos calculados", {{"Tempo de chamada", each Number.Round(_, 2), type number}}),
+				  #"Colunas renomeadas" = Table.RenameColumns(Arredondado, {{"Tempo de chamada", "Tempo Atendimento (Min)"}}),
+				  #"Subtração da data inserida" = Table.AddColumn(#"Colunas renomeadas", "Subtração", each Duration.Days([Data Resposta] - [Data Chamado]), type nullable Int64.Type),
+				  #"Colunas renomeadas 1" = Table.RenameColumns(#"Subtração da data inserida", {{"Subtração", "Qtd Dias P/Resposta"}})
+				in
+				  #"Colunas renomeadas 1"
+
+	annotation PBI_ResultType = Table
+

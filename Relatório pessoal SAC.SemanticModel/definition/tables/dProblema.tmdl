@@ -1,0 +1,33 @@
+table dProblema
+	lineageTag: 2c384240-1ad5-4733-ac7f-508988c73abb
+
+	column 'Codigo Problema'
+		dataType: int64
+		formatString: 0
+		lineageTag: fa33fe17-4c48-4a7e-887d-0e80992e0207
+		summarizeBy: none
+		sourceColumn: Codigo Problema
+
+		annotation SummarizationSetBy = Automatic
+
+	column Problema
+		dataType: string
+		lineageTag: 6b66cf99-f4c7-40de-bb42-ac44e6d28d77
+		summarizeBy: none
+		sourceColumn: Problema
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dProblema = m
+		mode: import
+		source =
+				let
+				  Origem = Excel.Workbook(File.Contents("C:\Users\gabri\Downloads\Projeto PBI\Base SAC.xlsx"), null, true),
+				  #"Navegação 1" = Origem{[Item = "dProblema", Kind = "Sheet"]}[Data],
+				  #"Cabeçalhos promovidos" = Table.PromoteHeaders(#"Navegação 1", [PromoteAllScalars = true]),
+				  #"Tipo de coluna alterado" = Table.TransformColumnTypes(#"Cabeçalhos promovidos", {{"Codigo Problema", Int64.Type}, {"Problema", type text}})
+				in
+				  #"Tipo de coluna alterado"
+
+	annotation PBI_ResultType = Table
+

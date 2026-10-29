@@ -1,0 +1,57 @@
+table dSuporte
+	lineageTag: 2d51df5e-5b9a-4f94-a32f-28af9928b13f
+
+	column 'Codigo Suporte'
+		dataType: int64
+		formatString: 0
+		lineageTag: 027943f8-5c86-47c9-8fdd-dd214f929b90
+		summarizeBy: none
+		sourceColumn: Codigo Suporte
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Nome Atendente'
+		dataType: string
+		lineageTag: fc27143b-a086-4c70-8d16-1d1e4ecef6d9
+		summarizeBy: none
+		sourceColumn: Nome Atendente
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sexo
+		dataType: string
+		lineageTag: f4e3c26f-b6ae-4f4e-b4b7-3f0095888630
+		summarizeBy: none
+		sourceColumn: Sexo
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Data de Nascimento'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: e210c29a-f2ad-4285-ab03-2443796aaa1a
+		summarizeBy: none
+		sourceColumn: Data de Nascimento
+
+		variation Variação
+			isDefault
+			relationship: a4d6e6c4-5bb6-4ebc-91bc-1adc94e89197
+			defaultHierarchy: LocalDateTable_d8433148-02e2-4809-ba4b-d659c32aa7a8.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition dSuporte = m
+		mode: import
+		source =
+				let
+				  Origem = Excel.Workbook(File.Contents("C:\Users\gabri\Downloads\Projeto PBI\Base SAC.xlsx"), null, true),
+				  #"Navegação 1" = Origem{[Item = "dSuporte", Kind = "Sheet"]}[Data],
+				  #"Cabeçalhos promovidos" = Table.PromoteHeaders(#"Navegação 1", [PromoteAllScalars = true]),
+				  #"Tipo de coluna alterado" = Table.TransformColumnTypes(#"Cabeçalhos promovidos", {{"Codigo Suporte", Int64.Type}, {"Nome Atendente", type text}, {"Sexo", type text}, {"Data de Nascimento", type date}})
+				in
+				  #"Tipo de coluna alterado"
+
+	annotation PBI_ResultType = Table
+

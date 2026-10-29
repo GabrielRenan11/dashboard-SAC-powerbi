@@ -1,0 +1,30 @@
+model Model
+	culture: pt-BR
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: pt-BR
+	valueFilterBehavior: independent
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["dUsuario","dSuporte","dProblema","fOcorrencias"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table dUsuario
+ref table DateTableTemplate_679894f2-c07a-4bbb-b619-b2c5dde34af4
+ref table LocalDateTable_5f7486b1-027d-4dee-9a4e-db4c6226a6c2
+ref table LocalDateTable_3f0f65d4-18e5-48d6-917b-4178adc85be8
+ref table dSuporte
+ref table LocalDateTable_d8433148-02e2-4809-ba4b-d659c32aa7a8
+ref table dProblema
+ref table fOcorrencias
+ref table LocalDateTable_ccea99d8-8e96-4487-8e13-b77e51b0f574
+ref table LocalDateTable_abb07fa6-3265-414f-a844-5b5abbf364a5
+ref table LocalDateTable_9f857985-2cad-4c8b-b7d8-9c95cb53c4af
+ref table LocalDateTable_e15127a2-804c-4e5c-9aae-00c5772ab68e
+
+ref cultureInfo pt-BR
+

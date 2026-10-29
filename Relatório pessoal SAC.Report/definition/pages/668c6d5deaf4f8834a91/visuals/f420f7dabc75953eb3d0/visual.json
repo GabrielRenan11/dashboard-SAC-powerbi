@@ -1,0 +1,192 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "f420f7dabc75953eb3d0",
+  "position": {
+    "x": 1384.56,
+    "y": 293.76,
+    "z": 6001,
+    "height": 367.2,
+    "width": 518.4,
+    "tabOrder": 6001
+  },
+  "visual": {
+    "visualType": "barChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dProblema"
+                    }
+                  },
+                  "Property": "Problema"
+                }
+              },
+              "queryRef": "dProblema.Problema",
+              "nativeQueryRef": "Problema",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fOcorrencias"
+                    }
+                  },
+                  "Property": "Total Atendimentos"
+                }
+              },
+              "queryRef": "fOcorrencias.Total Atendimentos",
+              "nativeQueryRef": "Total Atendimentos"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "fOcorrencias"
+                  }
+                },
+                "Property": "Total Atendimentos"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "objects": {
+      "valueAxis": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "categoryAxis": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "maxMarginFactor": {
+              "expr": {
+                "Literal": {
+                  "Value": "25L"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "labels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "labelContentLayout": {
+              "expr": {
+                "Literal": {
+                  "Value": "'SingleLine'"
+                }
+              }
+            },
+            "horizontalAlignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'left'"
+                }
+              }
+            },
+            "labelPosition": {
+              "expr": {
+                "Literal": {
+                  "Value": "'OutsideEnd'"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 1,
+                      "Percent": 0
+                    }
+                  }
+                }
+              }
+            },
+            "italic": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "bold": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "padding": [
+        {
+          "properties": {
+            "left": {
+              "expr": {
+                "Literal": {
+                  "Value": "13D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

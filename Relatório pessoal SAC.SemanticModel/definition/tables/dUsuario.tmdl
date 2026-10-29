@@ -1,0 +1,100 @@
+table dUsuario
+	lineageTag: 4fda7e14-a731-4a94-ba57-d4dbc9361bb5
+
+	column 'Codigo Usuario'
+		dataType: int64
+		formatString: 0
+		lineageTag: cb8f973f-746e-4840-9f54-13ecab3ca0b3
+		summarizeBy: none
+		sourceColumn: Codigo Usuario
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sexo
+		dataType: string
+		lineageTag: 2cedfe00-27e7-412c-be6d-3d0b7bab061c
+		summarizeBy: none
+		sourceColumn: Sexo
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Data de Nascimento'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 29a36ec7-0f3a-488e-883a-873be58f95ab
+		summarizeBy: none
+		sourceColumn: Data de Nascimento
+
+		variation Variação
+			isDefault
+			relationship: f566d0e2-5755-488a-a4cc-78ce4ced5d53
+			defaultHierarchy: LocalDateTable_5f7486b1-027d-4dee-9a4e-db4c6226a6c2.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Data de inscrição'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: dcdd2d7c-c3eb-4c65-b735-7449dec92bef
+		summarizeBy: none
+		sourceColumn: Data de inscrição
+
+		variation Variação
+			isDefault
+			relationship: 12afb940-39e5-4bbc-9a91-b8f1674dc6ce
+			defaultHierarchy: LocalDateTable_3f0f65d4-18e5-48d6-917b-4178adc85be8.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Usuário
+		dataType: string
+		lineageTag: 5c3b3614-d6d1-4bb6-a42e-e34c57c8d186
+		summarizeBy: none
+		sourceColumn: Usuário
+
+		annotation SummarizationSetBy = Automatic
+
+	column Idade
+		dataType: int64
+		formatString: 0
+		lineageTag: dec47665-2bee-4fe0-a2d6-4e4cfcf64540
+		summarizeBy: sum
+		sourceColumn: Idade
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Faixa Etária'
+		dataType: string
+		lineageTag: e8038978-0732-48d3-ace5-27d91b7ecc67
+		summarizeBy: none
+		sourceColumn: Faixa Etária
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dUsuario = m
+		mode: import
+		source =
+				let
+				  Origem = Excel.Workbook(File.Contents("C:\Users\gabri\Downloads\Projeto PBI\Base SAC.xlsx"), null, true),
+				  #"Navegação 1" = Origem{[Item = "dUsuario", Kind = "Sheet"]}[Data],
+				  #"Cabeçalhos promovidos" = Table.PromoteHeaders(#"Navegação 1", [PromoteAllScalars = true]),
+				  #"Tipo de coluna alterado" = Table.TransformColumnTypes(#"Cabeçalhos promovidos", {{"Codigo Usuario", Int64.Type}, {"Nome Usuario", type text}, {"Sexo", type text}, {"Data de Nascimento", type date}, {"Data de inscrição", type date}}),
+				  #"Coluna Personalizada Adicionada" = Table.AddColumn(#"Tipo de coluna alterado", "Personalizar", each let splitNomeUsuario = Splitter.SplitTextByDelimiter(",", QuoteStyle.None)([Nome Usuario]), splitsplitNomeUsuario1 = Splitter.SplitTextByDelimiter(" ", QuoteStyle.None)(splitNomeUsuario{1}?), splitNomeUsuario2 = Splitter.SplitTextByDelimiter(", ", QuoteStyle.None)([Nome Usuario]) in Text.Combine({splitsplitNomeUsuario1{1}?, " ", splitNomeUsuario2{0}?}), type text),
+				  #"Colunas renomeadas" = Table.RenameColumns(#"Coluna Personalizada Adicionada", {{"Personalizar", "Usuário"}}),
+				  #"Colunas removidas" = Table.RemoveColumns(#"Colunas renomeadas", {"Nome Usuario"}),
+				  #"Valor substituído" = Table.ReplaceValue(#"Colunas removidas", "M", "Masculino", Replacer.ReplaceText, {"Sexo"}),
+				  #"Valor substituído 1" = Table.ReplaceValue(#"Valor substituído", "F", "Feminino", Replacer.ReplaceText, {"Sexo"}),
+				  #"Idade inserida" = Table.AddColumn(#"Valor substituído 1", "Idade", each DateTimeZone.LocalNow() - DateTimeZone.From([Data de Nascimento]), type nullable duration),
+				  #"Total de anos calculados" = Table.TransformColumns(#"Idade inserida", {{"Idade", each Duration.TotalDays(_) / 365, type nullable number}}),
+				  #"Arredondado para baixo" = Table.TransformColumns(#"Total de anos calculados", {{"Idade", each Number.RoundDown(_), type nullable Int64.Type}}),
+				  #"Coluna condicional inserida" = Table.AddColumn(#"Arredondado para baixo", "Faixa Etária", each if [Idade] <= 29 then "Jovem" else if [Idade] <= 39 then "Adulto" else "Sênior"),
+				  #"Tipo de coluna alterado 1" = Table.TransformColumnTypes(#"Coluna condicional inserida", {{"Faixa Etária", type text}})
+				in
+				  #"Tipo de coluna alterado 1"
+
+	annotation PBI_ResultType = Table
+

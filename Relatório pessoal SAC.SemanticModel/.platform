@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Relatório pessoal SAC"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "4a2c2b7b-5424-4688-8c28-618a3b6a3644"
+  }
+}
